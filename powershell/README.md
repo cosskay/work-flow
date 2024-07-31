@@ -20,7 +20,7 @@ check_iis.ps1
 change_pass.ps1
 ```
 
-## Стоп старт сервис 
+## Стоп старт сервис IIS
 ```
 net stop was /y
 net start w3svc
