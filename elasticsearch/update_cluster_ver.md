@@ -16,7 +16,7 @@ curl -X POST "localhost:9200/_flush/synced?pretty"
 curl -X POST "localhost:9200/_flush/synced?pretty" 
 curl -X POST "localhost:9200/_ml/set_upgrade_mode?enabled=true&pretty" 
 ```
-## УсУстаовка ПО 
+## Установка ПО 
 ```
 sudo systemctl stop elasticsearch.service
 rpm -Uvh elasticsearch-7.17.18-x86_64.rpm
