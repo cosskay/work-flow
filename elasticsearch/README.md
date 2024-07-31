@@ -2,6 +2,18 @@
 ```
 curl -X GET "localhost:9200/_cluster/health?pretty"
 ```
+## Удалить реплику индекса 
+```
+curl -X PUT "localhost:9200/your_index_name/_settings" -H 'Content-Type: application/json' -d'
+{
+  "index": {
+    "number_of_replicas": 0
+  }
+}
+'
+
+```
+
 # Backup 
 
 ## Для работы с дисками NFS ебходимо удостоверится что на всех нодах кластера user id и group id совпадают
