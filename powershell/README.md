@@ -25,3 +25,8 @@ change_pass.ps1
 net stop was /y
 net start w3svc
 ```
+## Перезапуск пулов IIS 
+```
+Скрипт делает recycle pool на всех ПК из файла 
+recycle_pool.ps1
+```
