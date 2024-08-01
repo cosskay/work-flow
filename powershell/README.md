@@ -30,3 +30,9 @@ net start w3svc
 Скрипт делает recycle pool на всех ПК из файла 
 recycle_pool.ps1
 ```
+## Найти сертификат по отпечатку на локальном компьютере
+```
+$thumbprint = "79d393ae4613f755"
+Get-ChildItem -Path Cert:\LocalMachine\My | Where-Object { $_.Thumbprint -eq $thumbprint }
+
+```
