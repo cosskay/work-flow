@@ -36,3 +36,9 @@ $thumbprint = "79d393ae4613f755"
 Get-ChildItem -Path Cert:\LocalMachine\My | Where-Object { $_.Thumbprint -eq $thumbprint }
 
 ```
+
+## Найти и удалить файлы за определенную дату 
+```
+Изменить переменные начала и конеч цикла для поиск и удаления файлов за период
+find_del_file.ps1
+```
