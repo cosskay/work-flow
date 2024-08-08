@@ -12,7 +12,7 @@ sudo rpm -Uvh  *x86_64.rpm
 zypper addrepo https://*repository/raw-repo-quantom-info/std-1/opensuse/15.4/x86_64 repo && zypper refresh 
 ```
 
-##Увеличение lvm тома 
+## Увеличение lvm тома 
 ### информация о диске
 ```
 lsblk
