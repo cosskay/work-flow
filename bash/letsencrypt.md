@@ -1,4 +1,4 @@
-## Установка acme
+## Установка acme chalenge
 ```
 git clone https://github.com/acmesh-official/acme.sh.git
 
@@ -25,3 +25,20 @@ cd ./acme.sh
 ```  
 
 ## Получаем сертифкаты для домена . Если  хостинг не позволяет подключится к сервису letsencrypt
+
+# Получаем сертификат с помощью api 
+## Установка acme
+```
+$git clone https://github.com/acmesh-official/acme.sh.git
+$cd ./acme.sh
+$./acme.sh --install -m my@email.ru
+$ alias acme.sh=~/.acme.sh/acme.sh
+```
+## Запрос сертификата  через api  AWS
+```
+$export  AWS_ACCESS_KEY
+$export  AWS_SECRET_ACCESS_KEY
+acme.sh  --issue  -d 'domen.ru' -d '*.domen.ru' --dns dns_aws --server letsencrypt --force
+```
+## получаем сертифкат wildcard для домена domen.ru
+
