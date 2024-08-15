@@ -1,4 +1,4 @@
-## Установка acme chalenge
+## Установка acme client 
 ```
 git clone https://github.com/acmesh-official/acme.sh.git
 
@@ -8,7 +8,7 @@ cd ./acme.sh
 
 ```
 
-## Запрос сертификата 
+## Запрос сертификата   acme-challenge
 ```
 ./acme.sh --issue  -d mysite.ru --dns --yes-I-know-dns-manual-mode-enough-go-ahead-please --server letsencrypt --force
 ...
@@ -26,15 +26,15 @@ cd ./acme.sh
 
 ## Получаем сертифкаты для домена . Если  хостинг не позволяет подключится к сервису letsencrypt
 
-# Получаем сертификат с помощью api 
-## Установка acme
+# Получаем сертификат с помощью api  acme-challenge
+## Установка acme client
 ```
 $git clone https://github.com/acmesh-official/acme.sh.git
 $cd ./acme.sh
 $./acme.sh --install -m my@email.ru
 $ alias acme.sh=~/.acme.sh/acme.sh
 ```
-## Запрос сертификата  через api  AWS
+## Запрос сертификата  через api  AWS по умолчанию используется server zerossl 
 ```
 $export  AWS_ACCESS_KEY
 $export  AWS_SECRET_ACCESS_KEY
