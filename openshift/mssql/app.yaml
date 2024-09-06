@@ -1,0 +1,96 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-service
+  annotations:
+    io.cilium/lb-ipam-ips: 10.42.12.74
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+    - name: port
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+  selector:
+    app: mssql
+  type: LoadBalancer  
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql-deployment
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: mssql
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostname: mssqlinst
+      securityContext:
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+      - name: mssql
+        image: mssql/rhel/server:2019-CU20-rhel-8.7
+        resources:
+          requests:
+            memory: "8G"
+            cpu: "2000m"
+          limits:
+            memory: "8G"
+            cpu: "2000m"
+        ports:
+        - containerPort: 1433
+        securityContext:
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+        env:
+        - name: MSSQL_PID
+          value: "Developer"
+        - name: MSSQL_AGENT_ENABLED
+          value: "true"  
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name:  MSSQL_SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: MSSQL_SA_PASSWORD
+        volumeMounts:
+        - name: mssqldb
+          mountPath: /var/opt/mssql
+      volumes:
+      - name: mssqldb
+        persistentVolumeClaim:
+          claimName: mssql-pvc
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mssql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 250Gi
+  storageClassName: localstorage
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mssql
+type: Opaque
+data:
+  MSSQL_SA_PASSWORD: cGFyb2w=
