@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redisinsight
+  namespace: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redisinsight
+  template:
+    metadata:
+      labels:
+        app: redisinsight
+    spec:
+      containers:
+        - name: redisinsight
+          image: redislabs/redisinsight:1.14.0
+          resources:
+            requests:
+              cpu: 200m
+              memory: 500Mi
+            limits:
+              cpu: 200m
+              memory: 500Mi
+          ports:
+            - containerPort: 8001
+          env: 
+            - name: RIPROXYENABLE
+              value: "true"  
+            - name: RITRUSTEDORIGINS
+              value: "http://keydb-service.{$namespace}.svc.cluster.local"
+            - name: NO_PROXY
+              value: "localhost,127.0.0.1"  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redisinsight-service
+  namespace: redis
+spec:
+  selector:
+    app: redisinsight
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001
+  type: ClusterIP 
