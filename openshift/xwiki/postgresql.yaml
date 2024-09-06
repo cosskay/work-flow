@@ -1,0 +1,112 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: xwiki-db
+  namespace: wiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: xwiki-db
+  template:
+    metadata:
+      labels:
+        name: xwiki-db
+    spec:
+      volumes:
+        - name: xwiki-db-data
+          persistentVolumeClaim:
+            claimName: xwiki-db-data
+      containers:
+        - resources:
+            limits:
+              cpu: "4"
+              memory: 4096Mi
+            requests:
+              cpu: "4"
+              memory: 4096Mi
+          readinessProbe:
+            exec:
+              command:
+                - /usr/libexec/check-container
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          name: xwiki-db
+          livenessProbe:
+            exec:
+              command:
+                - /usr/libexec/check-container
+                - "--live"
+            initialDelaySeconds: 120
+            timeoutSeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: POSTGRESQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: xwiki-db
+                  key: database-user
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: xwiki-db
+                  key: database-password
+            - name: POSTGRESQL_DATABASE
+              value: xwiki
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: xwiki-db-data
+              mountPath: /var/lib/pgsql/data
+          image: rhel8/postgresql-12:1
+      restartPolicy: Always
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xwiki-db
+  namespace: wiki
+spec:
+  ports:
+    - name: postgresql
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    name: xwiki-db
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: xwiki-db-data
+  namespace: wiki
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: localstorage
+  volumeMode: Filesystem
+---
+apiVersion: v1
+data:
+  database-password: U2NrMjlkTk4=
+  database-user: eHdpa2k=
+kind: Secret
+metadata:
+  name: xwiki-db
+  namespace: wiki
+type: Opaque
