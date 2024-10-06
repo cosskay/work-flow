@@ -109,8 +109,7 @@
 
 - **Список изменённых файлов**
    ```bash
-   find /var/www/site -type f -mtime -30 ! -mtime -1 -printf '%TY-%Tm-%Td %TT %p
-' | sort -r
+   find /var/www/site -type f -mtime -30 ! -mtime -1 -printf '%TY-%Tm-%Td %TT %p' | sort -r
    ```
    Это поможет выявить недавно изменённые файлы. Обратите внимание, что злоумышленники могут изменить дату модификации, но это всё же полезная проверка.
 
