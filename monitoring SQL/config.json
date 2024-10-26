@@ -1,0 +1,7 @@
+{
+    "dbname": "logs_db",
+    "user": "log_user",
+    "password": "password",
+    "host": "localhost",
+    "log_file": "import_logs.log"
+}
