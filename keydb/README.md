@@ -19,3 +19,5 @@ TARGET_DB = 2                 -  номер  базы данных
 ``` 
 
 ###### скорость переноса данных ~ 20 мин  10.000 keys
+
+![KeyDB](https://img.shields.io/badge/KeyDB-v6.3.1-orange)

@@ -63,3 +63,4 @@ PUT _slm/policy/snapshots-everyday
 
 ```
 
+![Elasticsearch](https://img.shields.io/badge/Elasticsearch-8.9.0-yellow)

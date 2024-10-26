@@ -65,3 +65,4 @@ openssl x509 -in /etc/nginx/domain/domain.com.crt -text
 
 
 
+![Nginx](https://img.shields.io/badge/Nginx-1.26-green)

@@ -19,3 +19,4 @@ exec sp_WhoIsActive @sort_order = '[cpu]DESC'
 ```
 find_FK.sql
 ```
+![MSSQL](https://img.shields.io/badge/MSSQL-2019-lightgrey)

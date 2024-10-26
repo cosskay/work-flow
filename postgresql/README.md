@@ -45,3 +45,4 @@ TEMPLATE template0;
 SELECT * FROM pg_stat_activity;
 ```
 
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
