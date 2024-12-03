@@ -62,5 +62,41 @@ PUT _slm/policy/snapshots-everyday
 }
 
 ```
+## Вариант 2  создание бэкапа 
+### vim /srv/elasticsearch_snapshot.sh
+
+```bash 
+#!/bin/bash
+
+# Имя репозитория и снапшота с меткой даты
+REPOSITORY="repository"
+SNAPSHOT_NAME="snapshot-$(date +\%Y-\%m-\%d)"
+
+# Создание снапшота
+curl -XPUT "http://127.0.0.1:9200/_snapshot/$REPOSITORY/$SNAPSHOT_NAME" \
+-H 'Content-Type: application/json' -d '{
+  "indices": "*",
+  "ignore_unavailable": true,
+  "include_global_state": false
+}'
+
+# Удаление старых снапшотов, чтобы хранить только 3 последние
+OLD_SNAPSHOTS=$(curl -XGET "http://127.0.0.1:9200/_snapshot/$REPOSITORY/_all" | \
+  jq -r '.snapshots | sort_by(.start_time) | reverse | .[3:] | .[].snapshot')
+
+for SNAPSHOT in $OLD_SNAPSHOTS; do
+  curl -XDELETE "http://127.0.0.1:9200/_snapshot/$REPOSITORY/$SNAPSHOT"
+done
+
+```
+
+
+
+- chmod +x /srv/elasticsearch_snapshot.sh
+- crontab -e
+- 0 23 * * * /srv/elasticsearch_snapshot.sh
+
+```
+
 
 ![Elasticsearch](https://img.shields.io/badge/Elasticsearch-8.9.0-yellow)
