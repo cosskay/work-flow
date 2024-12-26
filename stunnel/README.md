@@ -82,6 +82,10 @@ csptest -keyset -container '\\.\HDIMAGE\server' -info
 ```
 csptest -keyset -enum_cont -verifycontext -fqcn -machinekeys
 ```
+## Удалить пин код с контейнера
+ ```
+ Удаление  пин кода через изенения пин кода csptest -passwd -change '' -cont 'HDIMAGE\\11077469.00c\9192' -passwd 12345678
+```
 ## Установка сертификата без привязки к ключам:
 ```
 certmgr -inst -file cert_server.cer
