@@ -127,3 +127,10 @@ certmgr -list -store uca
 certmgr -delete -store uMy
 ```
 
+## Сброс триал КриптоПро
+```
+удаляем в реестре ссылки на параметры 
+4BE57065-DC50-4239-8E32-11FABAF5ECF5
+C8B655BB-28A0-4BB6-BDE1-D0826457B2DF
+инсталляция CSPSetup, выбирая "Исправить"
+```
