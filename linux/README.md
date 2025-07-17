@@ -1,4 +1,7 @@
 ##  Монтирование SMB 
+[![Shell Script](https://img.shields.io/badge/language-bash-blue?logo=gnu-bash)](https://www.gnu.org/software/bash/)
+[![Security](https://img.shields.io/badge/security-hardened-critical?logo=linux)](https://github.com/topics/security)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ```
 sudo mount -t cifs  //{IP}/{DIR}/ /mnt/ -o username={name}
 ```

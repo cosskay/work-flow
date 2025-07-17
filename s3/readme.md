@@ -1,4 +1,7 @@
 ### Создание токена в S3
+[![Shell Script](https://img.shields.io/badge/language-bash-blue?logo=gnu-bash)](https://www.gnu.org/software/bash/)
+[![Security](https://img.shields.io/badge/security-hardened-critical?logo=linux)](https://github.com/topics/security)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 Описание команд radosgw-admin для Ceph RGW
 В этой статье представлен разбор ключевых команд `radosgw-admin`, используемых для управления пользователями и квотами в Ceph Object Gateway (RGW) в рамках кластера Ceph.

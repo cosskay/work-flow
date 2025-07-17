@@ -1,5 +1,8 @@
 
 # Установка и Настройка ACME для Управления Сертификатами
+[![Shell Script](https://img.shields.io/badge/language-bash-blue?logo=gnu-bash)](https://www.gnu.org/software/bash/)
+[![Security](https://img.shields.io/badge/security-hardened-critical?logo=linux)](https://github.com/topics/security)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 Этот документ описывает процесс установки и настройки ACME для получения SSL сертификатов с использованием Let's Encrypt и AWS Route 53 для DNS-валидации.
 

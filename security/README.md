@@ -1,5 +1,8 @@
 
 # Что делать при подозрении на взлом: Гайд по базовым проверкам
+[![Shell Script](https://img.shields.io/badge/language-bash-blue?logo=gnu-bash)](https://www.gnu.org/software/bash/)
+[![Security](https://img.shields.io/badge/security-hardened-critical?logo=linux)](https://github.com/topics/security)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 Когда возникает подозрение, что ваш сервер был взломан, первым делом нужно проверить несколько ключевых системных параметров и артефактов. В этой статье мы рассмотрим основные команды и логи, которые помогут вам провести первичную диагностику. Используйте этот список как отправную точку для выявления необычного поведения в системе.
 
