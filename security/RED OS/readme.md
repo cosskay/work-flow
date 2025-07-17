@@ -31,7 +31,8 @@
 1. Скачайте скрипт:
 
     ```bash
-    wget https://your-repo-url/check_redos_security.sh
+    git  clone  https://github.com/cosskay/work-flow.git
+    cd work-flow/security/RED OS
     chmod +x check_redos_security.sh
     ```
 
