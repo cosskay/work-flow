@@ -1,4 +1,8 @@
 # 🔐 RED OS 7.x Security Baseline Checker
+[![Shell Script](https://img.shields.io/badge/language-bash-blue?logo=gnu-bash)](https://www.gnu.org/software/bash/)
+[![Security](https://img.shields.io/badge/security-hardened-critical?logo=linux)](https://github.com/topics/security)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 
 Скрипт `check_redos_security.sh` предназначен для проверки соответствия конфигурации операционной системы **РЕД ОС 7.x** стандарту безопасности, описанному в документе «Стандарт настроек безопасности РЕД ОС 7.x».
 
@@ -59,6 +63,3 @@
 
 🏁 Проверка завершена. Выполните соответствующие действия из колонки 'Детали конфигурации', если статус не ✅.
 
-[![Shell Script](https://img.shields.io/badge/language-bash-blue?logo=gnu-bash)](https://www.gnu.org/software/bash/)
-[![Security](https://img.shields.io/badge/security-hardened-critical?logo=linux)](https://github.com/topics/security)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
