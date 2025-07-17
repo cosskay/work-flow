@@ -1,30 +1,68 @@
-#!/bin/bash 
+#!/bin/bash
 
-config=`ls | grep .cfg`
+set -e
 
-generate() {
-	openssl req -out sslcert.csr -newkey rsa:4096 -nodes -keyout private.key -config $config 
+CONFIG_FILE="config.cfg"
+
+# Проверка существования конфигурационного файла
+if [[ ! -f "$CONFIG_FILE" ]]; then
+    echo "❌ Ошибка: файл конфигурации '$CONFIG_FILE' не найден."
+    echo "Пожалуйста, создайте файл с необходимыми параметрами, например:"
+    cat <<EOF
+CN=example.com
+O=Example Company
+OU=IT Department
+C=RU
+ST=Moscow
+L=Moscow
+DAYS=365
+EOF
+    exit 1
+fi
+
+# Загрузка конфигурации
+source "$CONFIG_FILE"
+
+# Проверка обязательных параметров
+missing=0
+for var in CN O OU C ST L DAYS; do
+    if [[ -z "${!var}" ]]; then
+        echo "❌ Ошибка: переменная $var не задана в $CONFIG_FILE"
+        missing=1
+    fi
+done
+
+if [[ "$missing" -eq 1 ]]; then
+    exit 1
+fi
+
+# Создание директории для сертификатов
+CERT_DIR="certs"
+mkdir -p "$CERT_DIR"
+
+KEY_FILE="$CERT_DIR/${CN}.key"
+CSR_FILE="$CERT_DIR/${CN}.csr"
+CRT_FILE="$CERT_DIR/${CN}.crt"
+
+echo "🔐 Генерация приватного ключа..."
+openssl genrsa -out "$KEY_FILE" 2048 || {
+    echo "❌ Ошибка при генерации ключа"
+    exit 1
 }
-printsslcert() {
-	openssl req -noout -text -in sslcert.csr
-}
-printhelp() {
-	printf "To create a certificate request, you need to edit $config \n
-	To make a file a request must be run with the $0 generate_cert key \n
-	To view the request file, you need to run with the $0 print_cert key \n
-	---------------^_^------------------\n
-	it's so simple =) \n"
+
+echo "📄 Генерация запроса на сертификат (CSR)..."
+openssl req -new -key "$KEY_FILE" -out "$CSR_FILE" -subj "/C=$C/ST=$ST/L=$L/O=$O/OU=$OU/CN=$CN" || {
+    echo "❌ Ошибка при генерации CSR"
+    exit 1
 }
 
-case "$1" in 
-	gen)
-		generate
-	;;
-	print)
-		printsslcert
-	;;
-	*)
-		printhelp
-		exit 1
-esac
+echo "✅ Самоподписание сертификата на $DAYS дней..."
+openssl x509 -req -days "$DAYS" -in "$CSR_FILE" -signkey "$KEY_FILE" -out "$CRT_FILE" || {
+    echo "❌ Ошибка при самоподписании сертификата"
+    exit 1
+}
 
+echo "✅ Сертификат успешно создан:"
+echo "  🔑 Ключ:        $KEY_FILE"
+echo "  📄 Запрос CSR:  $CSR_FILE"
+echo "  📜 Сертификат:  $CRT_FILE"
