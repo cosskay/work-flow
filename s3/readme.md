@@ -7,7 +7,7 @@
 В этой статье представлен разбор ключевых команд `radosgw-admin`, используемых для управления пользователями и квотами в Ceph Object Gateway (RGW) в рамках кластера Ceph.
 ## 1. Создание пользователя
 ``` bash
-radosgw-admin --cluster server-ceph-tst user create --uid sys_digital-internet --display-name="sys_digital-internet DIGITALBNK-17488" --email="email@email.com"
+radosgw-admin --cluster server-ceph-tst user create --uid sys_digital-internet --display-name="sys_digital-internet task\number" --email="email@email.com"
 ```
 Описание:
  - Создаёт нового пользователя S3 в Ceph RGW.
